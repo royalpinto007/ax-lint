@@ -4,6 +4,8 @@
 
 [![npm version](https://img.shields.io/npm/v/ax-lint)](https://www.npmjs.com/package/ax-lint) [![CI](https://github.com/royalpinto007/ax-lint/actions/workflows/ci.yml/badge.svg)](https://github.com/royalpinto007/ax-lint/actions/workflows/ci.yml) [![license](https://img.shields.io/npm/l/ax-lint)](LICENSE)
 
+![An invalid AX manifest is linted, fixed, and passes](docs/assets/demo.gif)
+
 ## 30-second quickstart
 
 ```bash
