@@ -1,0 +1,14 @@
+node_modules/
+dist/
+coverage/
+*.tgz
+.env*
+!.env.example
+*.pem
+*.key
+.DS_Store
+.idea/
+.vscode/
+docs/superpowers/
+.superpowers/
+demo/tmp/
