@@ -1,4 +1,10 @@
-import { LineCounter, isNode, parseAllDocuments, type Document, type Node } from "yaml";
+import {
+  LineCounter,
+  isNode,
+  parseAllDocuments,
+  type Document,
+  type Node,
+} from "yaml";
 import type { AxDiagnostic, SourceLocation } from "./types.js";
 
 export interface ParsedDocument {
@@ -15,7 +21,11 @@ export interface ParseResult {
   diagnostics: AxDiagnostic[];
 }
 
-function position(lineCounter: LineCounter, file: string, offset = 0): SourceLocation {
+function position(
+  lineCounter: LineCounter,
+  file: string,
+  offset = 0,
+): SourceLocation {
   const point = lineCounter.linePos(Math.max(0, offset));
   return { file, line: point.line, column: point.col };
 }
@@ -31,7 +41,6 @@ export function parseAxSource(source: string, file = "<input>"): ParseResult {
     prettyErrors: false,
     strict: true,
     uniqueKeys: true,
-    maxAliasCount: 100,
   });
   const documents: ParsedDocument[] = [];
   const diagnostics: AxDiagnostic[] = [];
@@ -68,10 +77,19 @@ export function parseAxSource(source: string, file = "<input>"): ParseResult {
       source,
       yaml,
       location(path = "") {
-        const segments = path ? path.split(".").map((part) => (/^\d+$/.test(part) ? Number(part) : part)) : [];
+        const segments = path
+          ? path
+              .split(".")
+              .map((part) => (/^\d+$/.test(part) ? Number(part) : part))
+          : [];
         let node: Node | null | undefined = yaml.contents;
-        if (segments.length > 0) node = yaml.getIn(segments, true) as Node | null | undefined;
-        return position(lineCounter, file, nodeOffset(node) ?? nodeOffset(yaml.contents));
+        if (segments.length > 0)
+          node = yaml.getIn(segments, true) as Node | null | undefined;
+        return position(
+          lineCounter,
+          file,
+          nodeOffset(node) ?? nodeOffset(yaml.contents),
+        );
       },
     });
   });
