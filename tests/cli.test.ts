@@ -53,6 +53,7 @@ describe("formatters", () => {
   test("renders concise stylish output", () => {
     const output = formatStylish(awaitableResult(invalid));
     expect(output).toContain("Task/review");
+    expect(output).toContain("✖ Task/review");
     expect(output).toContain('Workspace "missing" does not exist');
     expect(output).toContain("error");
   });

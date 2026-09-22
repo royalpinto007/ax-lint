@@ -21,7 +21,7 @@ export function formatStylish(result: LintResult, quiet = false): string {
     lines.push(
       file ?? "<input>",
       "",
-      `${items[0]?.severity === "error" ? "✖" : "⚠"} ${label ?? "manifest"}`,
+      `${items.some((item) => item.severity === "error") ? "✖" : "⚠"} ${label ?? "manifest"}`,
     );
     for (const item of items)
       lines.push(
