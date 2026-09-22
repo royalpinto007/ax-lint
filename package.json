@@ -1,5 +1,5 @@
 {
-  "name": "ax-lint",
+  "name": "@royalpinto007/ax-lint",
   "version": "0.0.1",
   "description": "Catch broken and unsafe Google AX manifests before they reach your cluster.",
   "license": "MIT",

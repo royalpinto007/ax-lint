@@ -2,14 +2,14 @@
 
 > Catch broken and unsafe Google AX manifests before they reach your cluster.
 
-[![npm version](https://img.shields.io/npm/v/ax-lint)](https://www.npmjs.com/package/ax-lint) [![CI](https://github.com/royalpinto007/ax-lint/actions/workflows/ci.yml/badge.svg)](https://github.com/royalpinto007/ax-lint/actions/workflows/ci.yml) [![license](https://img.shields.io/npm/l/ax-lint)](LICENSE)
+[![npm version](https://img.shields.io/npm/v/%40royalpinto007%2Fax-lint)](https://www.npmjs.com/package/@royalpinto007/ax-lint) [![CI](https://github.com/royalpinto007/ax-lint/actions/workflows/ci.yml/badge.svg)](https://github.com/royalpinto007/ax-lint/actions/workflows/ci.yml) [![license](https://img.shields.io/npm/l/%40royalpinto007%2Fax-lint)](LICENSE)
 
 ![An invalid AX manifest is linted, fixed, and passes](docs/assets/demo.gif)
 
 ## 30-second quickstart
 
 ```bash
-npx ax-lint ax.yaml
+npx @royalpinto007/ax-lint ax.yaml
 ```
 
 ```text
@@ -98,7 +98,7 @@ Use `lintAxText(source, options, fileName)` for in-memory YAML. The complete API
 GitHub Actions annotations place findings on their exact files and lines:
 
 ```yaml
-- run: npx ax-lint --format github --strict manifests/
+- run: npx @royalpinto007/ax-lint --format github --strict manifests/
 ```
 
 Exit codes are stable:
