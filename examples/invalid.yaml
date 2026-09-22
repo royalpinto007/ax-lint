@@ -1,0 +1,23 @@
+apiVersion: ax.io/v1alpha1
+kind: Task
+metadata:
+  name: code-review
+spec:
+  image: ghcr.io/example/reviewer:latest
+  debug: true
+  env:
+    - name: API_TOKEN
+      value: replace-me
+  workspaces:
+    - name: repo
+---
+apiVersion: ax.io/v1alpha1
+kind: Gateway
+metadata:
+  name: default
+spec:
+  egress:
+    allowlist:
+      hosts:
+        - host: "*"
+          port: 443

@@ -1,0 +1,43 @@
+apiVersion: ax.io/v1alpha1
+kind: Task
+metadata:
+  name: code-review
+  atespace: default
+spec:
+  image: ghcr.io/example/reviewer@sha256:3a0dea6ad8b55278685db58aca6e37dc4ba04056831d45bef3aaeafdca43cac6
+  resources:
+    limits:
+      cpu: "2"
+      memory: 4Gi
+  workspaces:
+    - name: repo
+      path: /workspace
+  gateway:
+    name: restricted
+---
+apiVersion: ax.io/v1alpha1
+kind: Workspace
+metadata:
+  name: repo
+  atespace: default
+spec:
+  git:
+    - name: origin
+      repo: https://github.com/google/ax.git
+      branch: main
+---
+apiVersion: ax.io/v1alpha1
+kind: Gateway
+metadata:
+  name: restricted
+  atespace: default
+spec:
+  listeners:
+    - name: http
+      port: 8080
+      protocol: HTTP
+  egress:
+    allowlist:
+      hosts:
+        - host: api.example.com
+          port: 443
