@@ -1,6 +1,6 @@
 import { parseArgs } from "node:util";
 import { AX_CONTRACT_PROVENANCE } from "./contract/provenance.js";
-import { lintAx } from "./files.js";
+import { AxLintInputError, lintAx } from "./files.js";
 import { formatGitHub, formatJson, formatStylish } from "./formatters.js";
 
 export interface CliIo {
@@ -89,6 +89,6 @@ export async function runCli(argv: string[], io: CliIo): Promise<number> {
       : 0;
   } catch (error) {
     io.stderr(`ax-lint: ${(error as Error).message}\n`);
-    return 2;
+    return error instanceof AxLintInputError ? 2 : 3;
   }
 }

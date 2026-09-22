@@ -113,6 +113,32 @@ describe("CLI", () => {
     ).toBe(0);
     expect(output.join("")).toMatch(/ax-lint 0\.0\.1 .*d8ed0fe38bce/);
   });
+
+  test("uses exit 2 for missing input and exit 3 for unexpected rule failures", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "ax-lint-exit-"));
+    expect(
+      await runCli(["missing.yaml"], {
+        stdout: () => {},
+        stderr: () => {},
+        cwd: dir,
+      }),
+    ).toBe(2);
+    await writeFile(
+      join(dir, "ax.yaml"),
+      "kind: Task\nmetadata:\n  name: smoke\nspec: {}\n",
+    );
+    await writeFile(
+      join(dir, "ax-lint.config.mjs"),
+      `export default { customRules: [{ name: "test/crash", defaultSeverity: "warning", description: "crash", check() { throw new Error("unexpected"); } }] };\n`,
+    );
+    expect(
+      await runCli(["ax.yaml"], {
+        stdout: () => {},
+        stderr: () => {},
+        cwd: dir,
+      }),
+    ).toBe(3);
+  });
 });
 
 import { lintAxText as importedLintAxText } from "../src/engine.js";

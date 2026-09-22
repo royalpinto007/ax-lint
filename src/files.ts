@@ -12,6 +12,10 @@ const CONFIG_NAMES = [
   "ax-lint.config.cjs",
 ];
 
+export class AxLintInputError extends Error {
+  override name = "AxLintInputError";
+}
+
 async function loadConfig(
   cwd: string,
   explicit: string | false | undefined,
@@ -30,13 +34,14 @@ async function loadConfig(
       return loaded.default ?? {};
     } catch (error) {
       if ((error as NodeJS.ErrnoException).code === "ENOENT") continue;
-      throw new Error(
+      throw new AxLintInputError(
         `Unable to load config ${candidate}: ${(error as Error).message}`,
         { cause: error },
       );
     }
   }
-  if (explicit) throw new Error(`Config file not found: ${explicit}`);
+  if (explicit)
+    throw new AxLintInputError(`Config file not found: ${explicit}`);
   return {};
 }
 
@@ -81,7 +86,7 @@ export async function lintAx(
     cwd,
   );
   if (files.length === 0)
-    throw new Error("No YAML manifest files matched the input.");
+    throw new AxLintInputError("No YAML manifest files matched the input.");
   const config = await loadConfig(cwd, options.configFile);
   const merged: LintOptions = {
     rules: { ...config.rules, ...options.rules },
@@ -94,7 +99,7 @@ export async function lintAx(
     files.map(async (file) => {
       const info = await stat(file);
       if (info.size > 10 * 1024 * 1024)
-        throw new Error(`Manifest is larger than 10 MiB: ${file}`);
+        throw new AxLintInputError(`Manifest is larger than 10 MiB: ${file}`);
       return parseAxSource(
         await readFile(file, "utf8"),
         relative(cwd, file) || file,
