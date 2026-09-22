@@ -5,8 +5,12 @@
   "license": "MIT",
   "author": "Royal Pinto <royalpinto007@gmail.com>",
   "type": "module",
-  "engines": { "node": ">=20" },
-  "bin": { "ax-lint": "dist/cli.js" },
+  "engines": {
+    "node": ">=20"
+  },
+  "bin": {
+    "ax-lint": "dist/cli.js"
+  },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -18,12 +22,35 @@
     },
     "./package.json": "./package.json"
   },
-  "files": ["dist", "README.md", "LICENSE", "CHANGELOG.md"],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
   "sideEffects": false,
-  "keywords": ["google-ax", "ax", "manifest", "yaml", "linter", "validation", "cli", "security", "devops", "ci", "kubernetes", "agent"],
-  "repository": { "type": "git", "url": "git+https://github.com/royalpinto007/ax-lint.git" },
+  "keywords": [
+    "google-ax",
+    "ax",
+    "manifest",
+    "yaml",
+    "linter",
+    "validation",
+    "cli",
+    "security",
+    "devops",
+    "ci",
+    "kubernetes",
+    "agent"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/royalpinto007/ax-lint.git"
+  },
   "homepage": "https://github.com/royalpinto007/ax-lint#readme",
-  "bugs": { "url": "https://github.com/royalpinto007/ax-lint/issues" },
+  "bugs": {
+    "url": "https://github.com/royalpinto007/ax-lint/issues"
+  },
   "scripts": {
     "build": "tsup",
     "clean": "node scripts/clean.mjs",
@@ -37,9 +64,16 @@
     "check:package": "npm run build && publint && attw --pack . --ignore-rules cjs-resolves-to-esm",
     "prepack": "npm run build"
   },
-  "dependencies": { "yaml": "2.9.1" },
+  "dependencies": {
+    "tinyglobby": "0.2.17",
+    "yaml": "2.9.1"
+  },
+  "overrides": {
+    "esbuild": "0.28.2"
+  },
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.5",
+    "@eslint/js": "10.0.1",
     "@types/node": "26.6.2",
     "@vitest/coverage-v8": "5.0.1",
     "eslint": "10.11.0",

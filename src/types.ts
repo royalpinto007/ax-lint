@@ -23,7 +23,11 @@ export interface AxDiagnostic {
 
 export interface AxRuleContext {
   documents: readonly ParsedDocument[];
-  report(diagnostic: Omit<AxDiagnostic, "category" | "severity"> & { severity?: Severity }): void;
+  report(
+    diagnostic: Omit<AxDiagnostic, "category" | "severity"> & {
+      severity?: Severity;
+    },
+  ): void;
   location(document: ParsedDocument, path: string): SourceLocation;
 }
 
@@ -37,6 +41,11 @@ export interface AxRule {
 export interface LintOptions {
   rules?: Record<string, RuleSetting>;
   customRules?: readonly AxRule[];
+}
+
+export interface LintFilesOptions extends LintOptions {
+  cwd?: string;
+  configFile?: string | false;
 }
 
 export interface LintResult {
