@@ -16,9 +16,14 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./package.json": "./package.json"
   },
@@ -61,7 +66,8 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "check:contract": "node scripts/check-upstream-contract.mjs",
-    "check:package": "npm run build && publint && attw --pack . --ignore-rules cjs-resolves-to-esm",
+    "check:package": "npm run build && publint && attw --pack .",
+    "smoke": "npm run build && node scripts/smoke.mjs",
     "prepack": "npm run build"
   },
   "dependencies": {
